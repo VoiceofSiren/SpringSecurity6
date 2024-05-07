@@ -1,11 +1,12 @@
-#spring.application.name=springsecurity6master
-
-server:
-  port: 8098
-
-#spring:
+spring:
+  application:
+    name:
+      springsecurity6master
 #  security:
 #    user:
 #      name: user
 #      password: 1111
 #      roles: USER
+
+server:
+  port: 8098
