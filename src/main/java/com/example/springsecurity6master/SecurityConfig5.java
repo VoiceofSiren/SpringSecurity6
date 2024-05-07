@@ -11,22 +11,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-//@EnableWebSecurity
-//@Configuration
-public class SecurityConfig4 {
+@EnableWebSecurity
+@Configuration
+public class SecurityConfig5 {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/anonymous").hasRole("GUEST")
+                        .requestMatchers("/anonymoustContext", "/authentication").permitAll()
+                        .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
-                .rememberMe(rememberMe -> rememberMe
-//                        .alwaysRemember(true)
-                        .tokenValiditySeconds(3600)
-                        .userDetailsService(userDetailsService())
-                        .rememberMeParameter("rememberMe")
-                        .rememberMeCookieName("rememberMe")
-                        .key("security")
+                .anonymous(anonymous -> anonymous
+                        .principal("guest")
+                        .authorities("ROLE_GUEST")
                 );
         return http.build();
     }
