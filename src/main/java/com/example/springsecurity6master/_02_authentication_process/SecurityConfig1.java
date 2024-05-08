@@ -1,12 +1,10 @@
-package com.example.springsecurity6master;
+package com.example.springsecurity6master._02_authentication_process;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +23,9 @@ public class SecurityConfig1 {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
+                // [1] Authorization API (인가 정책 API)
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                // [2] Authentication API (인증 정책 API)
                 .formLogin(form -> form
 //                        .loginPage("/loginPage")
                         .loginProcessingUrl("/loginProc")
@@ -47,7 +47,7 @@ public class SecurityConfig1 {
                             response.sendRedirect("/home");
                         }))
                         */
-                        .failureHandler((request, response, exception) -> {
+                        .failureHandler((request, response, exception) -> { // failureUrl()보다 더 높은 우선순위를 가짐.
                             System.out.println("exception: " + exception);
                             response.sendRedirect("/login");
                         })
