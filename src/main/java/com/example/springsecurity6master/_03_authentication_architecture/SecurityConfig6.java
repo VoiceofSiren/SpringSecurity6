@@ -8,24 +8,22 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 
-// @EnableWebSecurity
-// @Configuration
-public class SecurityConfig5_2 {
+@EnableWebSecurity
+@Configuration
+public class SecurityConfig6 {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
-                ;
-
+        ;
         return http.build();
     }
 
     @Bean
-    public UserDetailsService customUserDetailsService() {
-        return new CustomUserDetailsService();
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService2();
     }
 }
