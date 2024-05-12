@@ -6,30 +6,26 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-//@EnableWebSecurity
-//@Configuration
-public class SecurityConfig4_1 {
-    /**
-     *  Bean이 아닌 일반 객체로 AuthenticationProvider 객체를 생성하는 방법
-     *  방법 1과 방법 2는 동일한 결과를 도출한다.
-     */
+@EnableWebSecurity
+@Configuration
+public class SecurityConfig5_2 {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        /**
+         *  하나의 UserDetailsService Bean만을 만들 경우 아래의 방법 1과 방법 2는 생략 가능하다.
+         *  단, Bean 객체가 아닌 new 연산자를 통해 생성한 일반 객체의 경우 반드시 방법 1 또는 방법 2를 사용해야만 한다.
+         */
+        // 방법 1과 방법 2는 동일하게 처리한다.
         /* 방법 1 */
-        authenticationManagerBuilder.authenticationProvider(new CustomAuthenticationProvider());
+        // authenticationManagerBuilder.userDetailsService(customUserDetailsService());
         /* 방법 2 */
-        // http.authenticationProvider(new CustomAuthenticationProvider());
-
+        // http.userDetailsService(customUserDetailsService());
 
         http
                 .authorizeHttpRequests(auth -> auth
@@ -40,9 +36,12 @@ public class SecurityConfig4_1 {
         return http.build();
     }
 
+
+    /**
+     *  authenticationManager.providers.DaoAuthenticationProvider.userDetailsService가 CustomUserDetailsService로 설정된다.
+     */
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withUsername("user").password("{noop}1111").roles("USER").build();
-        return new InMemoryUserDetailsManager(userDetails);
+    public UserDetailsService customUserDetailsService() {
+        return new CustomUserDetailsService();
     }
 }

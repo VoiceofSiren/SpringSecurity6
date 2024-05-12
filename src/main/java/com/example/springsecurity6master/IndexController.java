@@ -15,7 +15,7 @@ public class IndexController {
     @Autowired
     SecurityContextService securityContextService;
 
-    @GetMapping("/")
+/*    @GetMapping("/")
     public String index() {
         SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
         Authentication authentication = securityContext.getAuthentication();
@@ -23,6 +23,13 @@ public class IndexController {
 
         securityContextService.securityContext();
         return "index";
+    }*/
+
+    @GetMapping("/")
+    public Authentication index() {
+        SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        return authentication;
     }
 
     @GetMapping("/home")

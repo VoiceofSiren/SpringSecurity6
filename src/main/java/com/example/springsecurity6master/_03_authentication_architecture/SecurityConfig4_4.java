@@ -14,27 +14,26 @@ import org.springframework.security.web.SecurityFilterChain;
 
 //@EnableWebSecurity
 //@Configuration
-public class SecurityConfig4_1 {
-    /**
-     *  Bean이 아닌 일반 객체로 AuthenticationProvider 객체를 생성하는 방법
-     *  방법 1과 방법 2는 동일한 결과를 도출한다.
-     */
+public class SecurityConfig4_4 {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        /* 방법 1 */
-        authenticationManagerBuilder.authenticationProvider(new CustomAuthenticationProvider());
-        /* 방법 2 */
-        // http.authenticationProvider(new CustomAuthenticationProvider());
-
+        // 방법 1
+        authenticationManagerBuilder.authenticationProvider(new CustomAuthenticationProvider3());
+        authenticationManagerBuilder.authenticationProvider(new CustomAuthenticationProvider4());
 
         http
                 .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
+                // 방법 2
+                /*
+                .authenticationProvider(new CustomAuthenticationProvider3())
+                .authenticationProvider(new CustomAuthenticationProvider4())
+                 */
                 ;
 
         return http.build();
