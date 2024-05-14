@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class CustomAuthenticationProvider5 implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;

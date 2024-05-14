@@ -35,6 +35,11 @@ public class SecurityConfig4_3 {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
+                // 위에서 authenticationManagerBuilder.authenticationProvider()를 통해 AuthenticationProvider를 추가하는 방식과 동일한 결과
+                /*
+                .authenticationProvider(customAuthenticationProvider())
+                .authenticationProvider(customAuthenticationProvider2())
+                 */
                 ;
 
         return http.build();

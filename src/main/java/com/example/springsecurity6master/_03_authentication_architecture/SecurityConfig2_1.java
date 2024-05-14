@@ -37,8 +37,8 @@ public class SecurityConfig2_1 {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/","/login").permitAll()
                         .anyRequest().authenticated())
-                // [3] HttpSecurity에 생성한 AuthenticationManager를 저장한다.
                 .formLogin(Customizer.withDefaults())
+                // [3] HttpSecurity에 생성한 AuthenticationManager를 저장한다.
                 .authenticationManager(authenticationManager)
                 .addFilterBefore(customFilter(http, authenticationManager), UsernamePasswordAuthenticationFilter.class);
         ;
