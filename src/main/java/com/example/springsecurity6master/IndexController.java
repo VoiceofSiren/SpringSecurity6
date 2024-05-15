@@ -55,9 +55,14 @@ public class IndexController {
         }
     }
 
+    /*
+    << 익명 사용자의 이름을 가져오는 방법 >>
+        - Session에 접근하지 않는다.
+        - SecurityContext에 저장되어 있는 AnonymousAuthenticationToken에 접근하여 익명 사용자의 정보를 가져온다.
+     */
     @GetMapping("/anonymousContext")
-    public String anonymousContext(@CurrentSecurityContext SecurityContext securityContext) {
-        return securityContext.getAuthentication().getName();
+    public Authentication anonymousContext(@CurrentSecurityContext SecurityContext securityContext) {
+        return securityContext.getAuthentication();
     }
 
     @GetMapping("/logoutSuccess")
