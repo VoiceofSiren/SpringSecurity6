@@ -1,5 +1,7 @@
 package com.example.springsecurity6master;
 
+import com.example.springsecurity6master._05_session_management.SessionInfoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class IndexController {
 
     @Autowired
     SecurityContextService securityContextService;
+
+    private final SessionInfoService sessionInfoService;
 
 /*    @GetMapping("/")
     public String index() {
@@ -30,6 +35,12 @@ public class IndexController {
         SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
         Authentication authentication = securityContext.getAuthentication();
         return authentication;
+    }
+
+    @GetMapping("/sessionInfo")
+    public String sessionInfo() {
+        sessionInfoService.sessionInfo();
+        return "sessionInfo";
     }
 
     @GetMapping("/home")
