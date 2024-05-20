@@ -1,0 +1,4 @@
+#spring.application.name=cors1
+
+server:
+  port: 8098
