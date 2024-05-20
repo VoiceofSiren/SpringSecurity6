@@ -9,9 +9,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SessionInfoService {
+public class SessionInfoService { // SecurityConfig4
 
-    private final SessionRegistry sessionRegistry;
+/*    private final SessionRegistry sessionRegistry;
 
     public void sessionInfo() {
         List<Object> principals = sessionRegistry.getAllPrincipals();
@@ -21,5 +21,5 @@ public class SessionInfoService {
                 System.out.println("사용자: " + principal + ", 세션 ID: " + sessionInfo.getSessionId() + ", 최종 요청 시간: " + sessionInfo.getLastRequest());
             }
         }
-    }
+    }*/
 }

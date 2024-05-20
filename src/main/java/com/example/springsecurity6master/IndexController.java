@@ -39,7 +39,7 @@ public class IndexController {
 
     @GetMapping("/sessionInfo")
     public String sessionInfo() {
-        sessionInfoService.sessionInfo();
+        //sessionInfoService.sessionInfo();
         return "sessionInfo";
     }
 
@@ -89,5 +89,15 @@ public class IndexController {
     @GetMapping("/expiredUrl")
     public String expiredUrl() {
         return "expiredUrl";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/denied")
+    public String denied() {
+        return "denied";
     }
 }
