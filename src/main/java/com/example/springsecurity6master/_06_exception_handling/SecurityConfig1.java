@@ -11,12 +11,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity
-@Configuration
+//@EnableWebSecurity
+//@Configuration
 public class SecurityConfig1 {
     /*
     1. 인증 예외 - AuthenticationException
-        - SecurityContext 내부의 Authentication 객체를 초기화
+        - SecurityContext 내부의 Authentication 객체를 null로+* 초기화
 
     2. 인가 예외 - AccessDeniedException
         - 익명 사용자인 경우 AuthenticationException을 Handling함
