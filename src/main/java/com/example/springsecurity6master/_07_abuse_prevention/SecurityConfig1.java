@@ -9,8 +9,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-@EnableWebSecurity
-@Configuration
+//@EnableWebSecurity
+//@Configuration
 public class SecurityConfig1 {
 
     @Bean
@@ -18,7 +18,6 @@ public class SecurityConfig1 {
         http
                 .cors(cors -> cors
                         .configurationSource(corsConfigurationSource())
-
                 )
         ;
         return http.build();

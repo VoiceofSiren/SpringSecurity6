@@ -1,0 +1,13 @@
+### Send POST request with a header
+POST http://localhost:8098/csrf
+Content-Type: application/json
+
+### Send POST request with a header
+POST http://localhost:8098/csrf
+Content-Type: application/x-www-form-urlencoded
+
+_csrf = Ssbg7ezWDXwcWNEQSkQaWq0sjXU1SFhH_M4tV2gnv0gRD9BYffbY39-yPB4xPeEifGkub8gUoE1TLW9qy6gcZVtD3SxzP-dv
+
+### Send POST request with json body
+POST http://localhost:8098/ignoreCsrf
+Content-Type: application/json
