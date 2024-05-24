@@ -1,3 +1,7 @@
+### Send GET request with a header
+GET http://localhost:8098
+Content-Type: application/json
+
 ### Send POST request with a header
 POST http://localhost:8098/csrf
 Content-Type: application/json

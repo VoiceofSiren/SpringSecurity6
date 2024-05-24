@@ -2,6 +2,7 @@ package com.example.springsecurity6master._07_abuse_prevention;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -27,14 +28,20 @@ public class SecurityConfig2_3 {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // 2) CookieCsrfTokenRepository
+        /*
         CookieCsrfTokenRepository cookieCsrfTokenRepository = new CookieCsrfTokenRepository();
 
         http
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(cookieCsrfTokenRepository))
                 ;
+        */
 
         http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/csrf").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(Customizer.withDefaults())
                 .csrf(csrf -> csrf
                         // JavaScript에서 쿠키를 읽을 수 있도록 HttpOnly를 명시적으로 false로 설정할 수 있다.
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))

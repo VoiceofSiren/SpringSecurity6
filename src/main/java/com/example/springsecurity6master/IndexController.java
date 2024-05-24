@@ -1,6 +1,7 @@
 package com.example.springsecurity6master;
 
 import com.example.springsecurity6master._05_session_management.SessionInfoService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -8,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -104,6 +106,13 @@ public class IndexController {
 
     @PostMapping("/csrf")
     public String csrf() {
+        return "csrf 적용됨.";
+    }
+
+    @GetMapping("/csrfToken")
+    public String csrfToken(HttpServletRequest request) {
+        CsrfToken csrfToken1 = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        CsrfToken csrfToken2 = (CsrfToken) request.getAttribute("_csrf");
         return "csrf 적용됨.";
     }
 }

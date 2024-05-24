@@ -2,6 +2,7 @@ package com.example.springsecurity6master._07_abuse_prevention;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -11,8 +12,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.XorCsrfTokenRequestAttributeHandler;
 
-@EnableWebSecurity
-@Configuration
+//@EnableWebSecurity
+//@Configuration
 public class SecurityConfig2_4 {
     /**
     CsrfTokenRequestHandler 인터페이스: 토큰 생성 및 응답을 수행.
@@ -33,6 +34,10 @@ public class SecurityConfig2_4 {
         xorCsrfTokenRequestAttributeHandler.setCsrfRequestAttributeName(null);
 
         http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/csrf").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(Customizer.withDefaults())
                 .csrf(csrf -> csrf
                         .csrfTokenRequestHandler(xorCsrfTokenRequestAttributeHandler))
                 ;
