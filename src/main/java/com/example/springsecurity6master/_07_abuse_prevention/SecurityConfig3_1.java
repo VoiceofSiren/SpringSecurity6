@@ -13,19 +13,18 @@ import org.springframework.security.web.SecurityFilterChain;
 
 //@EnableWebSecurity
 //@Configuration
-public class SecurityConfig2_1 {
+public class SecurityConfig3_1 {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/csrf").permitAll()
+                        .requestMatchers( "/csrf", "/csrfToken", "/form","/formCsrf").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/csrf"))
-        ;
+                .csrf(Customizer.withDefaults())
+                ;
 
         return http.build();
     }
