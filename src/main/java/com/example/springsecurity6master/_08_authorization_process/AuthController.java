@@ -1,6 +1,7 @@
-package com.example.springsecurity6master;
+package com.example.springsecurity6master._08_authorization_process;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,6 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     @GetMapping("/user")
     public String user(){
+        return "user";
+    }
+
+    @GetMapping("/user/{name}")
+    public String userName(@PathVariable(value = "name") String name){
         return "user";
     }
 
@@ -25,6 +31,11 @@ public class AuthController {
     public String admin(){
         return "admin";
     }
+    @GetMapping("/admin/db")
+    public String adminDb(){
+        return "admin/db";
+    }
+
 
     @GetMapping("/admin/payment")
     public String adminPayment(){
@@ -44,5 +55,10 @@ public class AuthController {
     @PostMapping("/post")
     public String post(){
         return "post";
+    }
+
+    @GetMapping("/custom")
+    public String custom(){
+        return "custom";
     }
 }
