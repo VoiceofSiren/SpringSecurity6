@@ -17,9 +17,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
-@EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
-@Configuration
+//@EnableWebSecurity
+//@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+//@Configuration
 public class SecurityConfig2 {
 
 
@@ -36,8 +36,10 @@ public class SecurityConfig2 {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/user").hasRole("USER")
+                        // "/db" end-point에 대하여 WebExpressionAuthorizationManager가 처리하도록 함.
                         .requestMatchers("/db").access(new WebExpressionAuthorizationManager("hasRole('DB')"))
                         .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                        // "/secure" end-point에 대하여 CustomAuthorizationManager가 처리하도록 함.
                         .requestMatchers("/secure").access(new CustomAuthorizationManager())
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())

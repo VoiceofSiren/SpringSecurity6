@@ -14,10 +14,10 @@ public class CustomAuthorizationManager implements AuthorizationManager<RequestA
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext object) {
 
-        // [1] Supplier에 담긴 인증 객체를 불러옴.
+        // [1] Supplier 타입의 authentication에 담긴 인증 객체를 불러옴.
         Authentication auth = authentication.get();
 
-        // 인증 정보가 없거나 인증되지 않은 경우
+        // 인증 정보가 없거나 인증되지 않았거나 익명 사용자인 경우
         if (auth == null || !auth.isAuthenticated() || auth instanceof AnonymousAuthenticationToken) {
             return new AuthorizationDecision(false);
         }
