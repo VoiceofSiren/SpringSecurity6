@@ -26,9 +26,9 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import java.util.ArrayList;
 import java.util.List;
 
-@EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
-@Configuration
+//@EnableWebSecurity
+//@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+//@Configuration
 public class SecurityConfig3 {
 
     @Bean
