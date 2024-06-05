@@ -1,6 +1,10 @@
 package com.example.springsecurity6master._08_authorization_process;
 
+import jakarta.annotation.security.DenyAll;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MethodController {     // SecurityConfig4_1    SecurityConfig4_2
 
-    private final DataService dataService;
+    private final DataProcessService dataService;
 
     @GetMapping("/adm")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -71,6 +75,48 @@ public class MethodController {     // SecurityConfig4_1    SecurityConfig4_2
     @GetMapping("/readMap")
     public Map<String, Account> readMap() {
         return dataService.readMap();
+    }
+
+    @GetMapping("/mm-user")
+    @Secured("ROLE_USER")
+    public String mmUser() {
+        return "mm-user";
+    }
+
+    @GetMapping("/mm-isAdmin")
+    @IsAdmin
+    public String mmIsAdmin() {
+        return "mm-isAdmin";
+    }
+
+    @GetMapping("/mm-ownerShip")
+    @OwnerShip
+    public Account mmOwnerShip(String name) {
+        return new Account(name, false);
+    }
+
+    @GetMapping("/mm-admin")
+    @RolesAllowed("ADMIN")
+    public String mmAdmin() {
+        return "mm-admin";
+    }
+
+    @GetMapping("/mm-permitAll")
+    @PermitAll
+    public String mmPermitAll() {
+        return "mm-permitAll";
+    }
+
+    @GetMapping("/mm-denyAll")
+    @DenyAll
+    public String mmDenyAll() {
+        return "mm-denyAll";
+    }
+
+    @GetMapping("/mm-delete")
+    @PreAuthorize("@myAuthorizer.isUser(#root)")
+    public String delete() {
+        return "mm-delete";
     }
 
 }

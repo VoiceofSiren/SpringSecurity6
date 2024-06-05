@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class DataService {
+public class DataProcessService {
 
     @PreFilter("filterObject.owner == authentication.name")
     public List<Account> writeList(List<Account> data) {

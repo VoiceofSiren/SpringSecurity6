@@ -6,13 +6,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DataService {
+public class DataMethodService {
     @PreAuthorize("")
     public String getUser() {
         return "user";
     }
     @PostAuthorize("")
-    public com.example.springsecurity6master._09_authorization_architecture.Account getOwner(String name) {
+    public Account getOwner(String name) {
         return new Account(name, false);
     }
     public String display() {
