@@ -17,9 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
-@Configuration
+//@EnableWebSecurity
+//@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+//@Configuration
 public class SecurityConfig5 {
 
     @Bean

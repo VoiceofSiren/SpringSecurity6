@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DataMethodService {
-    @PreAuthorize("")
+
     public String getUser() {
         return "user";
     }
-    @PostAuthorize("")
+
     public Account getOwner(String name) {
         return new Account(name, false);
     }
