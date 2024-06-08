@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 @RestController
 @RequiredArgsConstructor
 public class SaController {
+
+    private final AsyncService asyncService;
 
     AuthenticationTrustResolverImpl trustResolver = new AuthenticationTrustResolverImpl();
 
@@ -71,5 +75,32 @@ public class SaController {
             return List.of(new MemberDto("user", "1111"));
         }
         return Collections.emptyList();
+    }
+
+    @GetMapping("/sa-callable")
+    public Callable<Authentication> call() {
+        SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
+        System.out.println("securityContext = " + securityContext);
+        System.out.println("Parent Thread: " + Thread.currentThread().getName());
+        return new Callable<Authentication>() {
+            @Override
+            public Authentication call() throws Exception {
+                SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
+                System.out.println("securityContext = " + securityContext);
+                System.out.println("Child Thread: " + Thread.currentThread().getName());
+                return securityContext.getAuthentication();
+            }
+        };
+    }
+
+    @GetMapping("/sa-async")
+    public Authentication async() {
+        SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
+        System.out.println("securityContext = " + securityContext);
+        System.out.println("Parent Thread: " + Thread.currentThread().getName());
+
+        asyncService.asyncMethod();
+
+        return securityContext.getAuthentication();
     }
 }
