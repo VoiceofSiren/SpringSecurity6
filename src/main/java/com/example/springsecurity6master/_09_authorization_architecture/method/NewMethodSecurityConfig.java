@@ -14,8 +14,8 @@ import org.springframework.security.authorization.AuthorityAuthorizationManager;
 import org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
-@EnableMethodSecurity(prePostEnabled = false)
-@Configuration
+//@EnableMethodSecurity(prePostEnabled = false)
+//@Configuration
 public class NewMethodSecurityConfig {
 
     @Bean
