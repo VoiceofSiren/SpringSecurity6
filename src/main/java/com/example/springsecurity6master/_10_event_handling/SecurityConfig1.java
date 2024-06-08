@@ -29,9 +29,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import java.io.IOException;
 
-@EnableWebSecurity
+//@EnableWebSecurity
 @RequiredArgsConstructor
-@Configuration
+//@Configuration
 public class SecurityConfig1 {
 
     private final ApplicationContext applicationContext;
