@@ -15,9 +15,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
-//@EnableWebSecurity
-//@Configuration
-public class SecurityConfig1 {
+@EnableWebSecurity
+@Configuration
+public class SecurityConfig2 {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -33,7 +33,7 @@ public class SecurityConfig1 {
                         .requestMatchers("/sa-db").hasAuthority("ROLE_DB")
                         .requestMatchers("/sa-admin").hasAuthority("ROLE_ADMIN")
                         .anyRequest().permitAll())
-//                .formLogin(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 ;
         return http.build();

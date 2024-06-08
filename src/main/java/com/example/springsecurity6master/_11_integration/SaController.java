@@ -4,6 +4,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,14 +20,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SaController {
 
+    AuthenticationTrustResolverImpl trustResolver = new AuthenticationTrustResolverImpl();
+
     @GetMapping("/sa")
     public String index(HttpServletRequest request) {
-        return "index";
+        Authentication authentication = SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication();
+        return trustResolver.isAnonymous(authentication)? "anonymous" : "authenticated";
     }
 
-    @GetMapping("/sa-user")
-    public String user() {
-        return "user";
+    @GetMapping("/sa-user1")
+    public User user(@AuthenticationPrincipal User user) {
+        return user;
+    }
+
+    @GetMapping("/sa-user2")
+    public String user2(@AuthenticationPrincipal(expression = "username") String user) {
+        return user;
+    }
+
+    @GetMapping("/sa-current-user")
+    public User currentUser(@CurrentUser User user) {
+        return user;
+    }
+
+    @GetMapping("/sa-current-username")
+    public String currentUsername(@CurrentUsername String username) {
+        return username;
     }
 
     @GetMapping("/sa-db")
